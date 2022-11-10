@@ -1,0 +1,206 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class linkedlist
+{
+    struct node
+    {
+        int val;
+        node*next;
+    };
+    int length;
+    node*head;
+    public:
+
+    linkedlist():length(0),head(NULL){}
+    void addfirst(int val)
+    {
+        node*newnode=new node;
+        newnode->val=val;
+        newnode->next=NULL;
+        if(!length)head=newnode;
+        else
+        {
+            newnode->next=head;
+            head=newnode;
+        }
+        length++;
+    }
+
+    void addlast(int val)
+    {
+        node*newnode=new node;
+        newnode->val=val;
+        newnode->next=NULL;
+        if(!length)head=newnode;
+        else
+        {
+            node*curr=head;
+            while(curr->next)
+                curr=curr->next;
+            
+            curr->next=newnode;
+        }
+        length++;
+    }
+
+
+    void addpos(int val,int pos)
+    {
+        if(pos<=0||pos>length)cout<<"out of range\n";
+        else{
+        node*newnode=new node;
+        newnode->val=val;
+        newnode->next=NULL;
+        ll cnt=1;
+        node*curr=head;
+        while(cnt!=pos)
+        {
+            cnt++;
+            curr=curr->next;
+        }
+        newnode->next=curr->next;
+        curr->next=newnode;
+        length++;
+        }
+    }
+
+
+    void deletefirst()
+    {
+        if(length){
+        node*temp=head;
+        head=head->next;
+        temp->next=NULL;
+        delete temp;
+        length--;
+        }
+    }
+
+
+    
+    void deletelast()
+    {
+        if(length){
+        node*temp=head;
+        node*curr=head;
+        while(temp->next)
+        {
+            curr=temp;
+            temp=temp->next;
+        }
+        curr->next=NULL;
+        delete temp;
+        length--;
+        }
+    }
+
+
+    void deletepos(int pos)
+    {
+        if(pos<=0||pos>length)cout<<"out of range\n";
+       else{
+        node*temp=head;
+        node*curr=head;
+        ll cnt=1;
+        while(cnt!=pos)
+        {
+            cnt++;
+            curr=temp;
+            temp=temp->next;
+        }
+        curr->next=temp->next;
+        temp->next=NULL;
+        delete temp;
+        length--;
+        }
+    }
+
+
+    void Reverse()
+    {
+        if(length>1){
+        node*prev=NULL;
+        node*Next=head->next;
+        while(head->next)
+        {
+            head->next=prev;
+            prev=head;
+            head=Next;
+            Next=Next->next;
+        }
+        head->next=prev;
+        }
+    }
+
+
+    bool search(int val)
+    {
+        node*curr=head;
+        while(curr)
+        {
+            if(curr->val==val)return 1;
+            curr=curr->next;
+        }
+        return 0;
+    }
+
+
+    void print()
+    {
+        node*curr=head;
+        while(curr)
+        {
+            cout<<curr->val<<" ";
+            curr=curr->next;
+        }
+    }
+
+   /* ~linkedlist()
+    {
+        if(length){
+        node*temp=new node;
+        node*curr=head;
+        while(temp)
+        {
+            temp=curr;
+            curr=curr->next;
+            temp->next=NULL;
+            delete temp;
+        }
+        }
+    }*/
+};
+void solve()
+{
+    linkedlist l;
+    l.addfirst(1);
+    l.addfirst(2);
+    l.addfirst(3);
+    l.addlast(4);
+    l.addlast(5);
+    l.addlast(6);
+    l.addpos(7,4);
+    l.addpos(8,5);
+    l.addpos(9,1);
+    l.Reverse();
+    //cout<<l.search(5)<<nl;
+    l.print();
+}
+void A7med(){ 
+   ios_base ::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+  //#ifndef ONLINE_JUDGE
+  //freopen("perm.in","r",stdin);//freopen("options.out","w",stdout);
+  //#endif
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
