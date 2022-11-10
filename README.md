@@ -1,2 +1,1 @@
-# Data-Structure
-Linked_List
+# Data-Structures
