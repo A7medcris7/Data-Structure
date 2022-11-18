@@ -1,0 +1,268 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class linkedlist
+{
+    struct node
+    {
+        int val;
+        node*next;
+        node*prev;
+    };
+    int length;
+    node*head;
+    node*last;
+    public:
+
+    linkedlist():length(0),head(NULL),last(NULL){}
+    bool is_empty()
+    {
+        return length==0;
+    }
+
+    void addfirst(int val)
+    {
+        node*newnode=new node;
+        newnode->val=val;
+        newnode->next=newnode->prev=NULL;
+        if(is_empty())
+            last=head=newnode;
+        else
+        {
+            newnode->next=head;
+            newnode->prev=NULL;
+            head->prev=newnode;
+            head=newnode;
+        }
+        length++;
+    }
+
+    void addlast(int val)
+    {
+        node*newnode=new node;
+        newnode->val=val;
+        newnode->next=newnode->prev=NULL;
+        if(is_empty())
+            last=head=newnode;
+        else
+        {
+            last->next=newnode;
+            newnode->prev=last;
+            newnode->next=NULL;
+            last=newnode;
+        }
+        length++;
+    }
+
+    void addpos(int pos,int val)
+    {
+        node*newnode=new node;
+        newnode->val=val;
+        newnode->next=newnode->prev=NULL;
+        if(pos<=0||pos>length)cout<<"out of range\n";
+        else{
+        if(pos==1)addfirst(val);
+        else{
+        node*curr=head;
+        ll cnt=1;
+        while(cnt!=pos){
+        curr=curr->next; cnt++;}
+        newnode->prev=curr->prev;
+        curr->prev->next=newnode;
+        newnode->next=curr;
+        curr->prev=newnode;
+        length++;
+        }
+        }
+    }
+
+    void deletefirst()
+    {
+        if(is_empty())cout<<"linked list is empty\n";
+        else
+        {
+            node*temp=head;
+            head=head->next;
+            head->prev=NULL;
+            temp->next=NULL;
+            delete temp;
+            length--;
+        }
+    }
+
+    
+    void deletelast()
+    {
+        if(is_empty())cout<<"linked list is empty\n";
+        else
+        {
+            node*temp=last;
+            last=last->prev;
+            last->next=NULL;
+            temp->prev=NULL;
+            delete temp;
+            length--;
+        }
+    }
+
+    void deletepos(int pos)
+    {
+        if(pos<=0||pos>length)
+        cout<<"out of range\n";
+        else
+        {
+            if(pos==1)deletefirst();
+            else if(pos==length)deletelast();
+            else
+            {
+                ll cnt=1;
+                node*curr=head;
+                while(cnt!=pos){curr=curr->next; cnt++;}
+                curr->prev->next=curr->next;
+                curr->next->prev=curr->prev;
+                curr->next=NULL;
+                curr->prev=NULL;
+                delete curr;
+                length--;
+            }
+        }
+    }
+
+    void Reverse()
+    {
+        node*c=head;
+        node*p=NULL;
+        node*curr=head;
+        while(curr)
+        {
+            curr->prev=curr->next;
+            curr->next=p;
+            p=curr;
+            curr=curr->prev;
+        }
+        last=c;
+        head=p;
+    }
+
+    bool Search(int val)
+    {
+        node*curr=head;
+        while (curr)
+        {
+            if(curr->val==val)return 1;
+            curr=curr->next;
+        }
+        return 0;
+    }
+    
+    void update(ll pos, ll val)
+    {
+        node*curr=head;
+        ll cnt=1;
+        while(cnt!=pos)
+        {
+            cnt++;
+            curr=curr->next;
+        }
+        curr->val=val;
+    }
+    ll get_length()
+    {
+        return length;
+    }
+
+    void get_min_element()
+    {
+        if(!is_empty())cout<<"linked is empty\n";
+        else{
+        node*curr=head;
+        ll val=OO;
+        while(curr)
+        {
+            if(val>curr->val)
+            val=curr->val;
+            curr=curr->next;
+        }
+        cout<<val<<nl;
+        }
+    }
+
+    
+    void addafter(int val, int pos)
+    {
+        ll cnt=1;
+        node*curr=head;
+        while(cnt!=pos)
+        {
+            curr=curr->next;
+            cnt++;
+        }
+       node* newnode=new node;
+       newnode->val=val;
+       newnode->next=curr->next;
+       curr->next->prev=newnode;
+       curr->next=newnode;
+       newnode->prev=curr;
+        length++;
+    }
+
+    void print()
+    {
+        node*curr=head;
+        while(curr)
+        {
+            cout<<curr->val<<" ";
+            curr=curr->next;
+        }
+    }
+    /*
+    ~linkedlist()
+    {
+        node*temp=head;
+        while(temp)
+        {
+            node*t=temp;
+            temp=temp->next;
+            temp->next=NULL;
+            temp->prev=NULL;
+            delete temp;
+        }
+    }*/
+};
+void solve()
+{
+    linkedlist l1;
+    l1.addfirst(1);
+    l1.addlast(2);
+    l1.addpos(2,3);
+    l1.addfirst(5);
+    l1.addlast(9);
+    l1.addfirst(10);
+    l1.addlast(12);
+    //cout<<l1.get_length();
+    //l1.get_min_element();
+    //l1.update(2,23);
+    //cout<<l1.Search(0);
+    //l1.deletefirst();
+    //l1.deletelast();
+    //l1.deletepos(2);
+    //l1.Reverse();
+    l1.print();
+}
+void A7med(){ 
+   ios_base ::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+  //#ifndef ONLINE_JUDGE
+  //freopen("two2.in","r",stdin);//freopen("pow.out","w",stdout);
+  //#endif
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
