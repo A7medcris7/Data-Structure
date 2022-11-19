@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+template<class T>
+class Stack
+{
+   struct node
+   {
+    T val;
+    node*next;
+   };
+
+   node*head;
+   int length;
+
+
+public:
+       Stack():head(NULL),length(0){}
+
+       bool is_empty()
+       {
+           return length==0;
+       }
+
+       void push(T val)
+       {
+            node*newnode=new node;
+            newnode->val=val;
+            newnode->next=NULL;
+
+            if(is_empty())
+                head=newnode;
+            
+            else {
+            newnode->next=head;
+            head=newnode;}
+            length++;
+       }
+
+
+       void pop()
+       {
+        if(is_empty())cout<<"stack is empty\n";
+        else{
+           node*temp=head;
+           head=head->next;
+           temp->next=NULL;
+           delete temp;
+           length--;
+           }
+       }
+
+       ll gettop()
+       {
+        if(is_empty())return -1;
+        return head->val;
+       }
+
+       void Gettop(T&elm)
+       {
+        if(is_empty())cout<<"stack is empty\n"; 
+          else 
+          elm=head->val;
+       }
+
+       void print()
+       {
+        node*curr=head;
+          while (curr)
+          {
+            cout<<curr->val<<' ';
+            curr=curr->next;
+          }
+       }
+};
+void solve()
+{
+    Stack<int>st;
+    st.push(7);
+    st.push(8);
+    st.push(9);
+    st.push(10);
+    //st.pop();
+    //st.pop();
+    //int elm=0;
+    //st.Gettop(elm);
+    //cout<<elm<<nl;
+    //cout<<st.gettop()<<nl;
+    st.print();
+}
