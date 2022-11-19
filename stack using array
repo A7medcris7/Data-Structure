@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX=1000;
+template<class T>
+class Stack
+{
+    int top;
+    T arr[MAX];
+public:
+       Stack():top(-1){}
+
+       void push(T val)
+       {
+            if(top>=MAX)cout<<"stack is full\n";
+            else
+            {
+                top++;
+                arr[top]=val;
+            }
+       }
+
+       bool is_empty()
+       {
+        return top<0;
+       } 
+
+
+       void pop()
+       {
+          if(is_empty())cout<<"stack is empty\n";
+          else
+              top--;
+       }
+
+       ll gettop()
+       {
+        if(!is_empty())
+          return arr[top];
+          return -1;
+       }
+
+
+       void Gettop(T&elm)
+       {
+        if(is_empty())cout<<"stack is empty\n";
+        else
+        elm=arr[top];
+       }
+
+
+       void print()
+       {
+           for(int i=top;i>=0;i--)cout<<arr[i]<<' ';
+       }
+};
+void solve()
+{
+    Stack<int>st;
+    st.push(6);
+    st.push(7);
+    st.push(8);
+    st.push(9);
+    st.push(10);
+    //st.pop();
+    //st.pop();
+    //cout<<st.gettop()<<nl;
+    //int elm;
+    //st.Gettop(elm);
+    //cout<<elm<<nl;
+    st.print();
+}
+void A7med(){ 
+   ios_base ::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+  //#ifndef ONLINE_JUDGE
+  //freopen("two2.in","r",stdin);//freopen("pow.out","w",stdout);
+  //#endif
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
