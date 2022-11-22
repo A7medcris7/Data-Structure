@@ -1,0 +1,137 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+template<class T>
+class linkedqueue
+{
+    struct node
+    {
+        T val;
+        node*next;
+    };
+    node *rear,*front;
+    int length;
+
+public:
+    linkedqueue():rear(NULL),front(NULL),length(0){}
+
+    bool is_empty()
+    {
+       return length==0;
+    }
+
+    void add_element(T val)
+    {
+         node*newnode=new node;
+         newnode->val=val;
+         newnode->next=NULL;
+        
+        if(is_empty())
+        rear=front=newnode;
+
+        else
+        {
+            rear->next=newnode;
+            rear=newnode;
+        }
+        length++;
+    }
+
+
+    void delete_element()
+    {
+        if(is_empty())cout<<"queue is empty\n";
+        else
+        {
+            node*temp=front;
+            front=front->next;
+            temp->next=NULL;
+            delete temp;
+            length--;
+        }
+    }
+
+
+    T getfront()
+    {
+        assert(!is_empty());
+        return front->val;
+    }
+
+
+    T getrear()
+    {
+        assert(!is_empty());
+        return rear->val;
+    }
+
+    bool Search(T elemenet)
+    {
+        if(!is_empty()){
+            node*curr=front;
+            while(curr)
+            {
+                if(curr->val==elemenet)return 1;
+                curr=curr->next;
+            }
+            return 0;
+        }
+        return 0;
+    }
+
+    void print()
+    {
+      if(!is_empty()){
+        node*curr=front;
+            while(curr)
+            {
+                cout<<curr->val<<' ';
+                curr=curr->next;
+            }
+        }
+      else cout<<"queue is empty\n";
+    }
+
+    ~linkedqueue()
+    {
+        while(front)
+        {
+            node*t=front;
+            front=front->next;
+            t->next=NULL;
+            delete t;
+        }
+    }
+};
+void solve()
+{
+    linkedqueue<int>q;
+    q.add_element(2);
+    q.add_element(3);
+    q.add_element(4);
+    q.add_element(5);
+    q.delete_element();
+    q.add_element(6);
+    q.add_element(7);
+    //cout<<q.getfront();
+    //cout<<q.getrear();
+    //cout<<q.Search(3);
+    //q.print();
+}
+void A7med(){ 
+   ios_base ::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+  //#ifndef ONLINE_JUDGE
+  //freopen("two2.in","r",stdin);//freopen("pow.out","w",stdout);
+  //#endif
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
