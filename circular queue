@@ -1,0 +1,121 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+template<class T>
+class arrayqueue
+{
+    T *arr;
+    int rear,front,length,MAX;
+
+public:
+    arrayqueue(int max)
+    {
+       if(max<=0)MAX=1000;
+       else MAX=max;
+       rear=MAX-1;
+       front=0;
+       length=0;
+       arr=new T[MAX];
+    }
+
+    bool is_empty()
+    {
+       return length==0;
+    }
+
+    bool is_full()
+    {
+       return length==MAX;
+    }
+
+    void add_element(T val)
+    {
+          if(is_full())cout<<"queue is full\n";
+          else
+          {
+                rear=(rear+1)%MAX;
+                arr[rear]=val;
+                length++;
+          }
+    }
+
+
+    void delete_element()
+    {
+        if(is_empty())cout<<"queue is empty\n";
+        else
+        {
+            front=(front+1)%MAX;
+            length--;
+        }
+    }
+
+
+    T getfront()
+    {
+        assert(!is_empty());
+        return arr[front];
+    }
+
+
+    T getrear()
+    {
+        assert(!is_empty());
+        return arr[rear];
+    }
+
+    int Search(T elemenet)
+    {
+        if(!is_empty()){
+        for(int i=front;i!=rear;i=(i+1)%MAX)if(arr[i]==elemenet)return i;
+        if(arr[rear]==elemenet)return rear;
+        }
+        return -1;
+    }
+
+    void print()
+    {
+      if(!is_empty()){
+        for(int i=front;i!=rear;i=(i+1)%MAX)cout<<arr[i]<<' ';
+        cout<<arr[rear]<<' ';
+        }
+      else cout<<"queue is empty\n";
+    }
+
+    ~arrayqueue()
+    {
+        delete[]arr;
+    }
+};
+void solve()
+{
+    arrayqueue<int>q(5);
+    q.add_element(2);
+    q.add_element(3);
+    q.add_element(4);
+    q.add_element(5);
+    q.add_element(6);
+    //q.delete_element();
+    q.add_element(1);
+    //cout<<q.getfront();
+    //cout<<q.getrear();
+    //cout<<q.Search(6);
+    q.print();
+}
+void A7med(){ 
+   ios_base ::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+  //#ifndef ONLINE_JUDGE
+  //freopen("two2.in","r",stdin);//freopen("pow.out","w",stdout);
+  //#endif
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
