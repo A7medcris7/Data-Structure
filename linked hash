@@ -1,0 +1,133 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class linkedhash
+{
+  int key,val;
+  linkedhash*next;
+
+  public:
+  linkedhash(int k,int v):key(k),val(v),next(NULL){}
+  int get_val(){return val;}
+  int get_key(){return key;}
+  linkedhash* get_next(){return next;}
+  void set_next(linkedhash*n)
+  {
+    next=n;
+  }
+
+  void set_val(int v)
+  {
+     val=v;
+  }
+};
+const int MAX=128;
+class hashmap
+{
+  linkedhash**table;
+  public:
+  hashmap(){
+    table=new linkedhash*[MAX];
+
+    for(int i=0;i<MAX;i++)
+    table[i]=NULL;
+  }
+
+
+  int getval(int key)
+  {
+      int hash=key%MAX;
+      if(!(table[hash]))return -1;
+      
+      linkedhash*curr=table[hash];
+
+      while(curr&&curr->get_key()!=key)
+      curr=curr->get_next();
+
+      if(!curr)return -1;
+
+      return curr->get_val();
+  }
+
+
+  void put(int key,int val)
+  {
+    int hash=key%MAX;
+    if(!(table[hash]))
+    table[hash]=new linkedhash(key,val);
+
+    else
+    {
+      linkedhash*curr=table[hash];
+      while(curr->get_next())
+      curr=curr->get_next();
+
+      if(curr->get_key()==key)
+      curr->set_val(val);
+
+      else curr->set_next(new linkedhash(key,val));
+    }
+  }
+
+
+  void remove(int key)
+  {
+    int hash=key%MAX;
+    if(!(table[hash]))cout<<"not found\n";
+    else
+    {
+      linkedhash*curr=table[hash];
+      linkedhash*prev=NULL;
+       while(curr&&curr->get_key()!=key)
+       {
+        prev=curr;
+        curr=curr->get_next();
+       }
+
+       if(!prev)
+       {
+           prev=curr->get_next();
+           delete curr;
+           table[hash]=prev;
+       }
+
+       else
+       {
+         linkedhash* temp=curr;
+         curr=curr->get_next();
+         delete temp;
+         prev->set_next(curr);
+       }
+       
+    }
+  }
+};
+void solve()
+{
+    hashmap t;
+    t.put(0,2);
+    t.put(0,4);
+    t.put(1,3);
+    //t.remove(0);
+    //t.remove(0);
+    //t.remove(1);
+    cout<<t.getval(0)<<'\n';
+    cout<<t.getval(1)<<'\n';
+}
+void A7med(){ 
+   ios_base ::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+  //#ifndef ONLINE_JUDGE
+  //freopen("two2.in","r",stdin);//freopen("pow.out","w",stdout);
+  //#endif
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
