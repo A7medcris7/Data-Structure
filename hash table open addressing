@@ -1,0 +1,123 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define nl '\n'
+
+using namespace std;
+template<typename X,typename Y>
+struct hash_map
+{
+  X key;
+  Y val;
+  hash_map(X k,Y v):key(k),val(v){}
+};
+
+template<typename X,typename Y>
+class hashmap
+{
+   hash_map<X,Y>**table;
+   int size;
+   int capacity;
+   int hashfunc(X key)
+   {
+    return key%capacity;
+   }
+   
+   public:
+
+   hashmap()
+   {
+       size=0;
+       capacity=25;
+       table=new hash_map<X,Y>*[capacity];
+       for(int i=0;i<capacity;i++)table[i]=NULL;
+   }
+
+
+   void insertnode(X key,Y val)
+   {
+      hash_map<X,Y>*newnode=new hash_map<X,Y>(key,val);
+      
+      int idx=hashfunc(key);
+      
+      while(table[idx]&&table[idx]->key!=key)
+      idx++;
+
+      if(!table[idx])
+      size++;
+
+      table[idx]=newnode;
+   }
+
+
+   void deletenode(X key)
+   {
+      int idx=hashfunc(key);
+      while(table[idx]&&table[idx]->key!=key)idx++;
+      if(table[idx])
+      {
+         size--;
+         
+         table[idx]=new hash_map<X,Y>(-1,-1);
+      }
+   }
+
+
+   void get(X key)
+   {
+      int idx=hashfunc(key);
+      while(table[idx]&&table[idx]->key!=key)
+        idx++;
+      
+      if(table[idx])
+      {
+        cout<<table[idx]->val;
+      }
+    else  cout<<"not found";
+   }
+
+
+    int size_Map()
+    {
+        return size;
+    }
+  
+    bool is_Empty()
+    {
+        return size == 0;
+    }
+  
+    void print()
+    {
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] != NULL)
+                cout << "key = " << table[i]->key
+                     << "  value = "
+                     << table[i]->val <<nl;
+        }
+    }
+};
+
+void solve()
+{
+  hashmap<char,int>m;
+  m.insertnode('a',1);
+  m.insertnode('b',3);
+  m.insertnode('c',4);
+  m.insertnode('d',5);
+  m.deletenode('a');
+  //m.get('a');
+  //cout<<m.size_Map();
+  //cout<<m.is_Empty();
+  m.print();
+}
+int main(){
+    A7med();
+    ll t=1;
+    //seive();
+    //cin>>t;
+    //cin.ignore();
+    while(t--){
+    solve();
+    }
+  return 0;
+}
